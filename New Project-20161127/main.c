@@ -13,8 +13,8 @@ int main(void) {
 	int y;				/* número do exercício */
 	scanf("%d", &y);	/* input char as int */
 
-	if ( y == 0 ) { 			/* Exercício 0 */
-	    printf("Hello_World!");
+	if ( y == 0 ) {			/* Exercício 0 */
+	    printf("%s\n", "Hello_World!");
 	}
 	else if ( y == 1 ) { 		/* Exercício 1 */
 		int A;
@@ -22,7 +22,7 @@ int main(void) {
 		int B;
 		scanf("%d", &B);
 		for ( i = A; i <= B; ++i ) {
-		   printf(i);
+		   printf("%d\n", i);
 		}
 	}
 	else if ( y == 2 ) { 		/* Exercício 2 */
@@ -40,7 +40,7 @@ int main(void) {
       		soma += vetor_linha[i];
    		}
 
-   		int max(vetor){
+   		int max(int vetor[]){
    			/* determina o elemento máximo armazenado em um vetor */
    			int max;
    			for ( i = 0; i < sizeof(vetor); ++i){
@@ -56,7 +56,7 @@ int main(void) {
    			return max;
    		}
 
-   		int min(vetor){
+   		int min(int vetor[]){
    			/* determina o elemento mínimo armazenado em um vetor */
    			int min;
    			for ( i = 0; i < sizeof(vetor); ++i){
@@ -72,10 +72,10 @@ int main(void) {
    			return min;
    		}
 
-   		printf(soma);
-   		printf(soma/N);				/* MÉDIA */
-   		printf(max(vetor_linha));
-   		printf(min(vetor_linha));
+   		printf("%.1f\n", soma);
+   		printf("%.1f\n", soma/N);				/* MÉDIA */
+   		printf("%.1f\n", max(vetor_linha));
+   		printf("%.1f\n", min(vetor_linha));
 	}
 	else if ( y == 4 ) { 		/* Exercício 4 */
 		int N;	/* N = número de alunos {1 < N < 100}*/
@@ -104,7 +104,7 @@ int main(void) {
 			str_append( situacao, ' Reprovado' );
 		}
 		*/
-		printf(situacao);
+		printf("%s\n", situacao); /* Depende de como estará armazenada a variável */
 	}
 	else if ( y == 5 ) { 		/* Exercício 5 */
 		int N;	/* N = número a calcular o fatorial (N!) */
@@ -121,7 +121,7 @@ int main(void) {
 		}
 
 		/*cálculo do fatorial pela função declarada acima */
-		printf(fat(N));
+		printf("%d\n", fat(N));
 	}
 	else if ( y == 6 ) { 		/* Exercício 6 */
 		int k;	/* k-ésimo elemento de Fibonacci */
@@ -130,18 +130,18 @@ int main(void) {
 		/* função recursiva do cálculo de Fibonacci */
 		int Fib(n){
 			/* n = n-ésimo elemento da sequência */
-			if ( n == 0){
+			if ( n == 0 ){
 				return 0;
 			{
-			else if ( n == 1){
+			else if ( n == 1 ){
 				return 1;
 			}
-			else{
+			else {
 				return (Fib(n-1) + Fib(n-2));
 			}
 		}
 
-		printf(Fib(k));
+		printf("%d\n", Fib(k));
 	}
 	else if ( y == 7 ) { 		/* Exercício 7 */
 		int N;	/* N = número de rodadas de Jokenpô */
@@ -158,31 +158,33 @@ int main(void) {
 		/* carregando o vetor de jogadas */
 		int jogadas[ N ];
 		for( i = 0 ; i < N ; i++ ) {
-      		scanf("%c %c", &jogadas[i]); /*PODE DAR MERDA!*/
+      			scanf("%c %c", &jogadas[i]); /*PODE DAR MERDA!*/
    		}
 
    		/* contando os pontos */
-   		Depende de como os dados serão armazenados!
+   		/*
+		Depende de como os dados serão armazenados!
    		==> Não esquecer da comparação das jogadas!
-
+		*/
 
    		/* resultado do jogo */
-   		char resultado;
-   		if (M > J){
-   			resultado = 'Maria';
+   		char *resultado;
+   		int M, J;
+		if (M > J){
+   			resultado = "Maria";
    		}
    		else if (J > M){
-   			resultado = 'João';
+   			resultado = "João";
    		}
    		else{
-   			resultado = 'EMPATE';
+   			resultado = "EMPATE";
    		}
-   		printf(resultado);
+   		printf("%s\n", resultado);
 	}
 	else if ( y == 8 ) { 		/* Exercício 8 */
 		int A, B;
 		scanf("%d %d\n", &A, &B); /* PODE DAR MERDA! */
-		printf(“%d %d\n”, B, A);
+		printf("%d %d\n", B, A);
 		/* Pra q ponteiro? */
 	}
 	else if ( y == 9 ) { 		/* Exercício 9 */
@@ -193,23 +195,26 @@ int main(void) {
 			P = prestações
 			TR = taxa de referência = 0,0957% (Fev/2016)
 			x = taxa de juros
-			r = taxa de referência percentual
+			r = taxa de referência percentual(TR) / 100
 			k = número de parcelas
 		output:
 			D_ = D – A*(1+r) + D*r = dívida do mês seguinte
 			P_ = A*(1+r) + D*x*(1+r) = parcela do mês seguinte
 		*/
 		float D, A, x;
-		char mes;
+		char *mes;
 		int k;
 		scanf("%f %f %f %s %d\n", &D, &A, &x, &mes, k); /* PODE DAR MERDA! */
 
 		float D_, P_;
+		float TR = 0,0957; /* (Fev/2016) => Como fazer pra variar? */
+		float r = TR/100;
 		for ( i = 0; i < k; ++i ){
+			P_ = A*(1+r) + D*(x/100)*(1+r);
 			D_ = D – A*(1+r) + D*r;
-			P_ = A*(1+r) + D*x*(1+r);
 			printf("%.2f %.2f\n", P_, D_);
-		}	/* Acho q está errado a atualização dos valores! */
+			D = D_;
+		}	/* Falta atualizar mais alguma coisa! */
 	}
 
 	return 0;
@@ -218,7 +223,8 @@ int main(void) {
 /*
 REFERÊNCIAS PARA ESTUDO:
  
- - http://www.lysator.liu.se/c/c-faq/c-2.html
- - https://www.ime.usp.br/~pf/algoritmos/aulas/pont.html
+ - [Arrays and Pointers](http://www.lysator.liu.se/c/c-faq/c-2.html)
+ - [https://www.ime.usp.br/~pf/algoritmos/aulas/pont.html](Endereços e ponteiros)
+ - [C Tutorial – printf, Format Specifiers, Format Conversions and Formatted Output](https://www.codingunit.com/printf-format-specifiers-format-conversions-and-formatted-output)
 
  */
