@@ -6,6 +6,7 @@
     Date : 27/11/2016
 */
 
+#include <string.h>
 #include <stdio.h>
 int main(void) {
 	
@@ -13,7 +14,7 @@ int main(void) {
 	int y;				/* número do exercício */
 	scanf("%d", &y);	/* input char as int */
 
-	if ( y == 0 ) {			/* Exercício 0 */
+	if ( y == 0 ) {				/* Exercício 0 */
 	    printf("%s\n", "Hello_World!");
 	}
 	else if ( y == 1 ) { 		/* Exercício 1 */
@@ -80,28 +81,34 @@ int main(void) {
 	else if ( y == 4 ) { 		/* Exercício 4 */
 		int N;	/* N = número de alunos {1 < N < 100}*/
 		scanf("%d", &N);
-		int num_alunos[ N ];
 		
+		char *relacao_alunos[ N ][ 1 ];	/* matriz nula de alunos */
 		for( i = 0 ; i < N ; ++i ) {
-      		scanf("%.1f %s %s", &num_alunos[i]); /*PODE DAR MERDA!*/
-      		
+      		scanf(" %[^\n]s", &relacao_alunos[i][1]); /*AINDA ESTÁ DANDO MERDA!*/
       		/* Consigo carregar o vetor corretamente aqui?! */
-
-      		/*
-      		Tem q permitir pegar uma string e depois separá-la
-   			por um delimitador, no nosso caso, espaço " "
-   			*/
    		}
 				
 		int k;	/* k-ésimo aluno ~> k > 0 */
 		scanf("%d", &k);
-		char situacao[] = N[k].nome;
+		
+		char aluno[ strlen( relacao_alunos ) ];
+		char temp_nota[4];
+		char *nota;
+		char nome[ strlen( relacao_alunos ) ];
+		
+		strcpy( aluno, relacao_alunos );			/* pega os dados de 1 aluno */
+		strcpy( temp_nota, aluno );					/* copia os valores, pra não sobrescrever ALUNO */
+		nota = strtok( temp_nota, " " );			/* pega a NOTA do aluno */
+		memcpy( nome, &aluno[strlen( nota )+1], (strlen( aluno ) - strlen( nota ))-1 ); /* pega o NOME do aluno */
+		
+		char situacao[] = nome;		/* a situação do aluno vai ser atualizada depois de verificar sua nota */
+		
 		/* Se a nota do aluno for...
 		if ( N[k].get(%.1f) >= 7.0){
-			str_append( situacao, ' Aprovado' );
+			strcat( situacao, ' Aprovado' );
 		}
 		else{
-			str_append( situacao, ' Reprovado' );
+			strcat( situacao, ' Reprovado' );
 		}
 		*/
 		printf("%s\n", situacao); /* Depende de como estará armazenada a variável */
@@ -132,7 +139,7 @@ int main(void) {
 			/* n = n-ésimo elemento da sequência */
 			if ( n == 0 ){
 				return 0;
-			{
+			}
 			else if ( n == 1 ){
 				return 1;
 			}
@@ -207,11 +214,11 @@ int main(void) {
 		scanf("%f %f %f %s %d\n", &D, &A, &x, &mes, k); /* PODE DAR MERDA! */
 
 		float D_, P_;
-		float TR = 0,0957; /* (Fev/2016) => Como fazer pra variar? */
+		float TR = 0.0957; /* (Fev/2016) => Como fazer pra variar? */
 		float r = TR/100;
 		for ( i = 0; i < k; ++i ){
 			P_ = A*(1+r) + D*(x/100)*(1+r);
-			D_ = D – A*(1+r) + D*r;
+			D_ = D - A*(1+r) + D*r;
 			printf("%.2f %.2f\n", P_, D_);
 			D = D_;
 		}	/* Falta atualizar mais alguma coisa! */
@@ -224,7 +231,7 @@ int main(void) {
 REFERÊNCIAS PARA ESTUDO:
  
  - [Arrays and Pointers](http://www.lysator.liu.se/c/c-faq/c-2.html)
- - [https://www.ime.usp.br/~pf/algoritmos/aulas/pont.html](Endereços e ponteiros)
+ - [Endereços e ponteiros](https://www.ime.usp.br/~pf/algoritmos/aulas/pont.html)
  - [C Tutorial – printf, Format Specifiers, Format Conversions and Formatted Output](https://www.codingunit.com/printf-format-specifiers-format-conversions-and-formatted-output)
 
  */
