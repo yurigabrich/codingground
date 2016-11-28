@@ -82,36 +82,36 @@ int main(void) {
 		int N;	/* N = número de alunos {1 < N < 100}*/
 		scanf("%d", &N);
 		
-		char *relacao_alunos[ N ][ 1 ];	/* matriz nula de alunos */
+		char *relacao_alunos[ N ][ 1 ];	/* matriz de caracteres nula [ N x 1 ] */
 		for( i = 0 ; i < N ; ++i ) {
-      		scanf(" %[^\n]s", &relacao_alunos[i][1]); /*AINDA ESTÁ DANDO MERDA!*/
-      		/* Consigo carregar o vetor corretamente aqui?! */
+      			scanf(" %[^\n]s", &relacao_alunos[i][1]); /*AINDA ESTÁ DANDO MERDA!*/
    		}
 				
 		int k;	/* k-ésimo aluno ~> k > 0 */
 		scanf("%d", &k);
 		
-		char aluno[ strlen( relacao_alunos ) ];
+		char aluno[ strlen( relacao_alunos[k][1] ) ];
 		char temp_nota[4];
 		char *nota;
-		char nome[ strlen( relacao_alunos ) ];
+		char nome[ strlen( relacao_alunos[k][1] ) ];
 		
-		strcpy( aluno, relacao_alunos );			/* pega os dados de 1 aluno */
-		strcpy( temp_nota, aluno );					/* copia os valores, pra não sobrescrever ALUNO */
+		strcpy( aluno, relacao_alunos[k][1] );			/* pega os dados de 1 aluno */
+		strcpy( temp_nota, aluno );				/* copia os valores, pra não sobrescrever ALUNO */
 		nota = strtok( temp_nota, " " );			/* pega a NOTA do aluno */
+		float nota_num = atof(nota);				/* converte a nota char para float */		
 		memcpy( nome, &aluno[strlen( nota )+1], (strlen( aluno ) - strlen( nota ))-1 ); /* pega o NOME do aluno */
 		
-		char situacao[] = nome;		/* a situação do aluno vai ser atualizada depois de verificar sua nota */
+		char situacao[strlen( nome )];
+		strcpy( situacao, nome );	/* a situação do aluno vai ser atualizada depois de verificar sua nota */
 		
-		/* Se a nota do aluno for...
-		if ( N[k].get(%.1f) >= 7.0){
-			strcat( situacao, ' Aprovado' );
+		if ( nota_num >= 7.0){
+			strcat( situacao, " Aprovado" );
 		}
 		else{
-			strcat( situacao, ' Reprovado' );
+			strcat( situacao, " Reprovado" );
 		}
-		*/
-		printf("%s\n", situacao); /* Depende de como estará armazenada a variável */
+
+		printf("%s\n", situacao);	/* situação do aluno atualizada depois do IF */
 	}
 	else if ( y == 5 ) { 		/* Exercício 5 */
 		int N;	/* N = número a calcular o fatorial (N!) */
@@ -233,5 +233,5 @@ REFERÊNCIAS PARA ESTUDO:
  - [Arrays and Pointers](http://www.lysator.liu.se/c/c-faq/c-2.html)
  - [Endereços e ponteiros](https://www.ime.usp.br/~pf/algoritmos/aulas/pont.html)
  - [C Tutorial – printf, Format Specifiers, Format Conversions and Formatted Output](https://www.codingunit.com/printf-format-specifiers-format-conversions-and-formatted-output)
-
+ - [scanf](http://www.cplusplus.com/reference/cstdio/scanf/)
  */
